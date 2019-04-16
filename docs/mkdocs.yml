@@ -1,12 +1,12 @@
-site_name: JupyterHub-Deployment-ENGR101-2019Q1
+site_name: JupyterHub-Deployment-CombOpt
 
 theme:
   name: 'material'
   custom_dir: 'theme'
   language: 'en'
   palette:
-    primary: 'deep orange'
-    accent: 'indigo'
+    primary: 'indigo'
+    accent: 'orange'
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
@@ -20,10 +20,10 @@ markdown_extensions:
   - footnotes
   - toc
   - pymdownx.smartsymbols
-repo_url: https://github.com/ProfessorKazarinoff/jupyterhub-engr101
+repo_url: https://github.com/michael-ritter/jupyterhub-combopt
 extra_css: 
     - static/css/toc.css
-copyright: 'Copyright &copy; 2019 Peter D. Kazarinoff'
+copyright: 'Copyright &copy; 2019 Peter D. Kazarinoff, Michael Ritter'
 
 nav:
   - Home: index.md

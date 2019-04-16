@@ -1,15 +1,16 @@
-# Welcome to the JupyterHub Deployment Docs for ENGR101 2019Q1
+# Welcome to the JupyterHub Deployment Docs for Combinatorial
+Optimization 2019-S
 
 <br>
 
-This documentation serves as a record of the [JupyterHub](https://jupyter.org/hub) Deployment for ENGR101 Winter 2019 at Portland Community College. 
+This documentation serves as a record of the [JupyterHub](https://jupyter.org/hub) Deployment for MA4502 Combinatorial Optimization Summer 2019 at Technische Universität München. It is based on the [GitHub repository](https://github.com/ProfessorKazarinoff/jupyterhub-engr101) for a similar installation of Peter D. Kazarinoff for Portland Community College.
 
 <br>
 
 The GitHub repo for the deployment can be found here: 
 
- > [https://github.com/ProfessorKazarinoff/jupyterhub-engr101](https://github.com/ProfessorKazarinoff/jupyterhub-engr101)
-
+ > 
+[https://github.com/michael-ritter/jupyterhub-combopt-ma4502.git](https://github.com/michael-ritter/jupyterhub-combopt-ma4502.git)
 <br>
 
 Click the menu items on the left to view the deployment steps.
@@ -20,26 +21,17 @@ Or start [Here](what_is_jupyterhub.md) and click the arrows at the bottom of eac
 
 <br>
 
-The documentation site for a previous JupyterHub deployment can be found [here](https://professorkazarinoff.github.io/jupyterhub-engr114/) 
-
-There is also a [series of blog posts](https://pythonforundergradengineers.com/why-jupyter-hub.html) that documents my first JupyterHub deployment in Summer 2018. 
-
-This documentation builds upon the experience from my two previous JupyterHub depoloyments.
-
-<br>
-
 ## Main Steps
 
-* Install PuTTY, generate SSH keys
-* Create server, non-root sudo user
+* Generate SSH keys
+* Request virtual machine with non-root sudo user
 * Install JupyterHub and Python packages
-* Aquire and link domain name to server
-* Aquire SSL cirt
-* Create Cooke Secret, Proxy Auth Token, and dhparam.pem
+* Aquire SSL cert
+* Create Cookie Secret, Proxy Auth Token, and dhparam.pem
 * Install and configure Nginx
 * Configure JupyterHub
 * JupyterHub as system service
-* Google Authentication
-* Create custom login page
+* optional: Google Authentication
+* optional: Create custom login page
 * Pull assignments down from GitHub for each user
 * Extra configuration
