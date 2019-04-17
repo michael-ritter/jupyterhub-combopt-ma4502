@@ -32,10 +32,9 @@ nav:
   - SSH Keys: ssh_keys.md
   - Server Setup: server_setup.md
   - Install JupyterHub: install_jupyterhub.md
-  - DNS Routing: dns_routing.md
-  - SSL Certificates: ssl_cirtificates.md
-  - Cookie Secret and Proxy Auth Token: cookie_secret_proxy_auth_token.md
   - Install Nginx: nginx_install.md
+  - SSL Certificates: ssl_certificates.md
+  - Cookie Secret and Proxy Auth Token: cookie_secret_proxy_auth_token.md
   - Nginx Configuration: nginx_config.md
   - JupyterHub Configuration: jupyterhub_config.md
   - System Service: systemd.md

@@ -29,8 +29,8 @@ ssh -i ~/.ssh/jupyterhub_rsa ritter@m09vm14.ma.tum.de
 You should now see the server prompt as user ```ritter```. First, let's make sure everything is up to date:
 
 ```text
-$ sudo apt-get update
-$ sudo apt-get upgrade
+$ sudo apt update
+$ sudo apt upgrade
 ```
 
 ## Setting up a new user
@@ -90,24 +90,31 @@ $ exit
 
 ## Configuring the firewall
 
-Next, we need to open the **ufw** firewall to OpenSSH traffic. We we'll communicate with the server over SSH and need the **ufw** firewall to allow this type of communication through.
+Next, we need to open the **ufw** firewall to OpenSSH traffic. We we'll communicate with the server over SSH and need the **ufw** firewall to allow this type of communication through. While we're at it, let's also open ports 80 and 443 for http and https communications.
 
 ```text
-$ sudo ufw allow OpenSSH
+$ sudo ufw deny incoming
+$ sudo ufw allow outgoing
 $ sudo ufw allow ssh
+$ sudo ufw allow http
+$ sudo ufw allow https
 $ sudo ufw enable
 $ sudo ufw status
 ```
 
-We can see that OpenSSH is now allowed.
+We can see that ports 22, 80 and 443 are allowed.
 
 ```text
 Status: active
 
 To                         Action      From
 --                         ------      ----
-OpenSSH                    ALLOW       Anywhere                  
-OpenSSH (v6)               ALLOW       Anywhere (v6)             
+22/tcp                     ALLOW       Anywhere
+80/tcp                     ALLOW       Anywhere
+443/tcp                    ALLOW       Anywhere
+22/tcp (v6)                ALLOW       Anywhere (v6)
+80/tcp (v6)                ALLOW       Anywhere (v6)
+443/tcp (v6)               ALLOW       Anywhere (v6)             
 ```
 
 Now we can exit out of the ```ritter``` profile. This terminates the SSH session.

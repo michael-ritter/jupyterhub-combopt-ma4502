@@ -11,8 +11,8 @@ It is probably best to update the packages installed on the server in case there
 Open a terminal, log into the server, then update the system:
 
 ```bash
-$ sudo apt-get update
-$ sudo apt-get upgrade
+$ sudo apt update
+$ sudo apt upgrade
 ```
 
 ## Install Python
@@ -21,27 +21,27 @@ Before we install JupyterHub on the server, we need to install a current version
 
 1. We start by installing the prerequisites:
 
-    ```text
+    ```
     $ sudo apt install software-properties-common
     ```
 
  1. Next, add the deadsnakes PPA to your sources list:
 
-    ```text
+    ```
     $ sudo add-apt-repository ppa:deadsnakes/ppa
     ``` 
 
     When prompted press `Enter` to continue.
 
-2. Once the repository is enabled, install Python 3.7 with:
+2. Once the repository is enabled, install Python 3.7 and the virtual environment packages with:
 
-    ```text
-    $ sudo apt install python3.7
+    ```
+    $ sudo apt install python3.7 python3.7-venv
     ```
 
     At this point, Python 3.7 is installed on your Ubuntu system and ready to be used. You can verify it by typing:
 
-    ```text
+    ```
     $ python3.7 --version
     ```
     
@@ -52,20 +52,28 @@ For this JupyterHub install, we are going to create a virtual environment and in
 Finally, we install **JupyterLab** and **JupyterHub**.
 
 ```bash
-$ mkdir -p /srv/jupyterhub
+$ sudo mkdir -p /srv/jupyterhub
+$ sudo chown -R ritter:tumuser /srv/
 $ cd /srv/jupyterhub
 $ python3.7 -m venv venv
 $ source ./venv/bin/activate
-$(jupyterhub) pip install numpy matplotlib pandas xlrd
-$(jupyterhub) pip install jupyterlab jupyterhub
+$(venv) pip install numpy matplotlib pandas xlrd
+$(venv) pip install jupyterlab jupyterhub
 ```
 
 ## Run a very unsecured instance of Jupyter Hub just to see if it works
 
+Before we can actually run JupyterHub, we will need to install `configurable-http-proxy` that is used by JupyterHub. To do so, follow these steps:
+
+```
+$ sudo apt install npm
+$ sudo npm install -g configurable-http-proxy
+```
+
 OK- let's give JupyterHub a whirl. We'll start JupterHub for the first time. Note the ```--no-ssl``` flag at the end of the command. This flag needs to be included or you won't be able to browse to the server. Also note we have to have our ```(jupyterhub)``` virtual environment active when we run the command. 
 
 ```text
-$(jupyterhub) jupyterhub --no-ssl
+$(venv) jupyterhub --no-ssl
 ```
 
 We see some output in the terminal window. The last line is something like ```JupyterHub is now running at http://:8000/```. The first time I set up JupyterHub, I wasn't able to see the site using a web browser. No web page loaded, and the connection timed out.
@@ -83,7 +91,13 @@ $(jupyterhub) sudo ufw allow 8000
 $(jupyterhub) jupyterhub --no-ssl
 ```
 
-Now we can browse to the server appended with ```:8000```. The web address should look something like: ```http://m09vm14.ma.tum.de:8000```. Note this only works from inside the department network, from the outside you will have to use a technique like ssh forwarding to connect. We will take care of that later using a webserver as a reverse proxy
+Now we can browse to the server appended with ```:8000```. The web address should look something like: ```http://m09vm14.ma.tum.de:8000```. Note this only works from inside the department network, from the outside you will have to use a technique like ssh forwarding to connect:
+
+```
+$ ssh -i ~/.ssh/jupyterhub_rsa -L8080:localhost:8000 m09vm14.ma.tum.de
+```
+
+Then, start a web browser and enter http://localhost:8080. This should show the JupyterHub login screen.
 
 The JupyterHub login screen looks like:
 
