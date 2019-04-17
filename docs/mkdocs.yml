@@ -5,8 +5,8 @@ theme:
   custom_dir: 'theme'
   language: 'en'
   palette:
-    primary: 'indigo'
-    accent: 'orange'
+    primary: 'lime'
+    accent: 'light blue'
   font:
     text: 'Roboto'
     code: 'Roboto Mono'

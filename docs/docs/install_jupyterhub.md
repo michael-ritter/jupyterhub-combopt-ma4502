@@ -1,6 +1,6 @@
 # Install JupyterHub
 
-After the server is set up, and a non-root sudo user has been created, it is time to install JupyterHub on the server.
+After the server is set up, it is time to install JupyterHub on the server.
 
 [TOC]
 
@@ -8,129 +8,43 @@ After the server is set up, and a non-root sudo user has been created, it is tim
 
 It is probably best to update the packages installed on the server in case there are updates to the operating system and installed packages since the server was created. 
 
-Open PuTTY and log into the server as the non-root sudo user we created in the last step. Then update the system:
+Open a terminal, log into the server, then update the system:
 
-```text
+```bash
 $ sudo apt-get update
 $ sudo apt-get upgrade
 ```
 
-<br>
+## Install Python
 
-## Install Miniconda
+Before we install JupyterHub on the server, we need to install a current version of  Python and create a virtual environment. We'll install Python 3.7 following [this](https://linuxize.com/post/how-to-install-python-3-7-on-ubuntu-18-04/) description for Ubuntu 18.04 and we will use the built-in capabilities for setting up a virtual environment. Then, using the **pip** package manager, we will install the necessary Python packages and JupyterHub. For an alternative installation using **Miniconda**, see [the original version of this documentation](https://professorkazarinoff.github.io/jupyterhub-engr101/install_jupyterhub/).
 
-Before we install JupyterHub on the server, we need to install Python and create a virtual environment. We'll install Python using **Miniconda** and then use the **conda** package manager to create the virtual environment and install Python packages and JupyterHub. **Miniconda** is a lightweight version of **Anaconda**. **Miniconda** only comes with Python and the **conda** package manager. All of the Python packages that come with **Anaconda** are left out of **Miniconda**. This is just fine for us, since we are going to create a virtual environment anyway and don't need all of the packages that come with **Anaconda** in our JupyterHub deployment.
+1. We start by installing the prerequisites:
 
-For this JupyterHub deployment, we'll install **Miniconda** in the ```/opt``` directory. The **Miniconda** install is lighter than the full **Anaconda** install, and we don't need all the packages and GUI applications that **Anaconda** provides. The packages that we need in this deployment of JupyterHub, we can install in a separate virtual environment. 
+    ```text
+    $ sudo apt install software-properties-common
+    ```
 
-I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04) from Digital Ocean.
+ 1. Next, add the deadsnakes PPA to your sources list:
 
-Go to [https://repo.continuum.io/archive/](https://repo.continuum.io/archive/) and look down the list of installs for the newest installer that corresponds to:
+    ```text
+    $ sudo add-apt-repository ppa:deadsnakes/ppa
+    ``` 
 
- * Miniconda3 (not Miniconda2, we don't want legacy Python version 2.7)
- * Linux
- * x86
- * 64 (bit)
- * .sh (linux shell script)
+    When prompted press `Enter` to continue.
 
-The URL of the latest Miniconda install for Linux will look something like:
+2. Once the repository is enabled, install Python 3.7 with:
 
-```text
-https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-```
+    ```text
+    $ sudo apt install python3.7
+    ```
 
-To downland and install Miniconda on the server, we'll use the ```curl``` command and run the bash installer from the command line:
+    At this point, Python 3.7 is installed on your Ubuntu system and ready to be used. You can verify it by typing:
 
-```text
-$ cd /tmp
-$ curl -O $ https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-$ sudo bash Miniconda3-latest-Linux-x86_64.sh
-```
-
-During the Miniconda install, accept the licence.  Then specify the following installation directory. This step ensures that Miniconda is installed in the ```/opt``` directory, which is where the JupyterHub docs specify user programs should reside.
-
-```text
-/opt/miniconda3/
-```
-
-During the installation, the installer script will ask:
-
-```
-Do you wish the installer to initialize Miniconda3
-in your /home/peter/.bashrc ? [yes|no]
-[no] >>> yes
-```
-
-Type ```yes```.
-
-We want to be able to run **conda** from the command line. So make sure to allow **Miniconda** to append your PATH during the installation. After installation, we need to reload the ```.bashrc``` file because **Miniconda** made changes to our ```.bashrc``` during the install (when it added **conda** to our PATH).
-
-```text
-$ cd ~
-$ source .bashrc
-```
-
-When the install is complete,  look in ```/opt```, and see the ```miniconda3``` directory.
-
-```text
-$ cd /opt
-$ ls
-miniconda3
-```
-
-## Change Miniconda3 Permissions
-
-Now we need to deal with some permission issues. Since I am running as the user ```peter``` on the Digital Ocean server, I need to make sure the user ```peter``` has read, write, and execute permissions on the entire ```/opt/miniconda3/``` directory.
-
-We can give ```peter``` user permissions with ```chmod``` and ```chown```.
-
-```text
-$ cd /opt
-$ ls
-miniconda3
-$ ls -la
-total 12
-drwxr-xr-x  3 root root 4096 Oct 30 04:47 .
-drwxr-xr-x 23 root root 4096 Oct 29 17:49 ..
-drwxr-xr-x 13 root root 4096 Oct 30 04:47 miniconda3
-```
-
-Currently, the owner of the ```miniconda3``` directory is ```root``` and the group is ```root```. The owner ```root``` has read, write, execute privileges (```rwx```) and the group ```root``` has read, execute privileges (```r-x```), but no write privileges.
-
-Let's modify the read, write, execute privileges so that the group ```root``` can read, write, and execute (```rwx```).
-
-```text
-$ sudo chmod -R g+w miniconda3/
-$ ls -la
-total 12
-drwxr-xr-x  3 root root 4096 Oct 30 04:47 .
-drwxr-xr-x 23 root root 4096 Oct 29 17:49 ..
-drwxrwxr-x 13 root root 4096 Oct 30 04:47 miniconda3
-```
-
-OK, now let's change the group corresponding to the ```miniconda3/``` directory from ```root``` to ```peter```.
-
-```text
-$ sudo chown -R root:peter miniconda3/
-$ ls -la
-total 12
-drwxr-xr-x  3 root root  4096 Oct 30 04:47 .
-drwxr-xr-x 23 root root  4096 Oct 29 17:49 ..
-drwxrwxr-x 13 root peter 4096 Oct 30 04:47 miniconda3
-```
-
-Now the user ```peter``` will be able to install packages using **conda** and **pip** in the Miniconda3 installation in the ```/opt``` directory.
-
-Now that the permissions are changed, we should be able to run **conda** from the command line. Try:
-
-```text
-$ conda --version
-```
-
-If you see output, that means **Miniconda** was installed and **conda** can be run by the non-root user.
-
-<br>
-
+    ```text
+    $ python3.7 --version
+    ```
+    
 ## Create a virtual environment and install and packages
 
 For this JupyterHub install, we are going to create a conda environment (a virtual environment) and install packages into that environment. We'll call the conda environment ```jupyterhub``` and use ```python=3.7``` as our Python version. Then activate the ```jupyterhub``` environment and install **NumPy**, **Matplotlib**, **Pandas** and **Jupyter**. Also don't forget to install **xlrd**, this package is needed for **Pandas** to read ```.xlsx``` files. 
