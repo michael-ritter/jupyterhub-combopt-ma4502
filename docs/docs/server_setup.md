@@ -93,6 +93,7 @@ $ exit
 Next, we need to open the **ufw** firewall to OpenSSH traffic. We we'll communicate with the server over SSH and need the **ufw** firewall to allow this type of communication through.
 
 ```text
+$ sudo ufw allow OpenSSH
 $ sudo ufw allow ssh
 $ sudo ufw enable
 $ sudo ufw status
