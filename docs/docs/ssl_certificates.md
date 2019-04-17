@@ -1,20 +1,20 @@
 # Obtain SSL Certificates
 
-Now that nginx is running on our JupyterHub server, we'll be able to obtain an SSL certificate and run JupyterHub over https. I followed the instructions on [https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx](https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx) to install **certbot**, a program used to generate SSL certificates from [Let's Encrypt](https://letsencrypt.org).
+Now that nginx is running on our JupyterHub server, we'll be able to obtain an SSL certificate and run JupyterHub over https. I followed the instructions on [https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx](https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx) to install **Certbot**, a program used to generate SSL certificates from [Let's Encrypt](https://letsencrypt.org).
 
 [TOC]
 
-## Install certbot
+## Install Certbot
 
-We'll use **certbot** to obtain a standalone SSL certificate. Log onto the server with ssh in a terminal window.
+We'll use **Certbot** to obtain a standalone SSL certificate. Log onto the server with ssh in a terminal window.
 
-Certbot will need to communicate over the network, so before we run certbot, we need to open up Port 80 using the ufw firewall utility (if you have not done so already).
+Certbot will need to communicate over the network, so before we run Certbot, we need to open up Port 80 using the ufw firewall utility (if you have not done so already).
 
 ```text
 $ sudo ufw allow 80
 ```
 
-First, we will install certbot from the PPA maintained by Let's Encrypt:
+First, we will install Certbot from the PPA maintained by Let's Encrypt:
 
 ```
 $ sudo apt update
@@ -25,9 +25,9 @@ $ sudo apt update
 $ sudo apt install certbot python-certbot-nginx 
 ```
 
-# Run certbot
+# Run Certbot
 
-Next, we run certbot to obtain a certificate and automatically change the nginx configuration to use that certificate:
+Next, we run Certbot to obtain a certificate and automatically change the nginx configuration to use that certificate:
 
 ```bash
 $ sudo certbot --nginx
@@ -54,9 +54,9 @@ https://acme-v02.api.letsencrypt.org/directory
 (A)gree/(C)ancel: a
 ```
 
-You may then optionally choose to share your email address with the [Electronic Frontier Foundation (EFF)](https://www.eff.org), the organization that develops certbot. If you wish to not receive any email from the EFF, opting out here is a safe choice, no functionality will be lost.
+You may then optionally choose to share your email address with the [Electronic Frontier Foundation (EFF)](https://www.eff.org), the organization that develops Certbot. If you wish to not receive any email from the EFF, opting out here is a safe choice, no functionality will be lost.
 
-As we have not configured our nginx installation yet, certbot will ask for the name of our server. Enter the appropriate information:
+As we have not configured our nginx installation yet, Certbot will ask for the name of our server. Enter the appropriate information:
 
 ```text
 No names were found in your configuration files. Please enter in your domain
@@ -84,7 +84,7 @@ https://www.ssllabs.com/ssltest/analyze.html?d=m09vm14.ma.tum.de
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ```
 
-Finally, certbot gives us some details on the location of our certificate and the expiration date.
+Finally, Certbot gives us some details on the location of our certificate and the expiration date.
 
 ```text
 IMPORTANT NOTES:
@@ -93,7 +93,7 @@ IMPORTANT NOTES:
    Your key file has been saved at:
    /etc/letsencrypt/live/m09vm14.ma.tum.de/privkey.pem
    Your cert will expire on 2019-07-16. To obtain a new or tweaked
-   version of this certificate in the future, simply run certbot again
+   version of this certificate in the future, simply run Certbot again
    with the "certonly" option. To non-interactively renew *all* of
    your certificates, run "certbot renew"
  - Your account credentials have been saved in your Certbot

@@ -1,6 +1,6 @@
 # Create a Cookie Secret and Proxy Auth Token
 
-In addition to an SSL certificate, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and poxy auth token be created. 
+In addition to an SSL certificate, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and proxy auth token be created. 
 
 [TOC]
 
@@ -23,6 +23,7 @@ $ sudo touch jupyterhub_cookie_secret
 $ sudo chown :sudo jupyterhub_cookie_secret
 $ sudo chmod g+rw jupyterhub_cookie_secret
 $ sudo openssl rand -hex 32 > jupyterhub_cookie_secretl
+$ sudo chown root jupyterhub_cookie_secret  
 $ sudo chmod 600 jupyterhub_cookie_secret
 $ls -la
 
@@ -46,6 +47,7 @@ $ sudo touch proxy_auth_token
 $ sudo chown :sudo proxy_auth_token
 $ sudo chmod g+rw proxy_auth_token
 $ sudo openssl rand -hex 32 > proxy_auth_token
+$ sudo chown root proxy_auth_token
 $ sudo chmod 600 proxy_auth_token
 $ls -la
 
@@ -65,7 +67,7 @@ Now, when we list the contents of ```~/srv/jupyterhub``` we see:
 
 Let's also generate a ```dhparam.pem``` file. I'm still not exactly sure what the ```dhparam.pem``` file is, it has something to do with security. ```dhparam.pem``` will be incorporated into our Nginx config file later on.
 
-We'll use the same set of commands we used to create the cookie secret and proxy auth token. The part which is different is the ```openssl dhparam``` command generates the ````.pem file```. It takes a minute or two for openssl to do it's work. Finally we modify the permissions again to ```600``` (owner-only rw). Note the location of the ```dhparam.pem``` file as we will add it to the Nginx config file.
+We'll use the same set of commands we used to create the cookie secret and proxy auth token. The part which is different is the ```openssl dhparam``` command that generates the ````.pem file```. It takes a minute or two for openssl to do it's work. Finally we modify the permissions again to ```600``` (owner-only rw). Note the location of the ```dhparam.pem``` file as we will add it to the Nginx config file.
 
 ```text
 $ pwd
@@ -76,6 +78,7 @@ $ sudo chmod g+rw dhparam.pem
 $ sudo openssl dhparam -out /srv/jupyterhub/dhparam.pem 2048
 # wait a minute or two
 
+$ sudo chown root dhparam.pem
 $ sudo chmod 600 dhparam.pem
 $ ls -la
 
@@ -105,6 +108,4 @@ Each of these three files have their permissions set to ```600```.
 
 ## Next Steps
 
-The next step is to install Nginx on the server.
-
-<br>
+The next step is to complete the configuration of Nginx on the server.

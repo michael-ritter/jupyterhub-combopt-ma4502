@@ -1,6 +1,6 @@
 # Nginx Configuration
 
-The next step is to modify the Nginx config file so that Nginx uses our SSL certificates and routes requests on to JupyterHub.
+The next step is to modify the Nginx config file so that Nginx routes requests on to JupyterHub.
 
 [TOC]
 
@@ -10,7 +10,7 @@ The big initial problem was that I copied the sample Nginx config that's up on t
 
 ## Determine number of cores and core limitations
 
-According to [this tutorial]() from Digital Ocean, you can determine the number of cores running on your server and what the limits of those cores are with a couple commands. Information about our server's cores will be put in the Nginx configuration later.
+You can determine the number of cores running on your server and what the limits of those cores are with a couple commands. Information about our server's cores will be put in the Nginx configuration later. Usually, you will have requested a four core VM.
 
 The first command determines the number of cores on the server:
 
@@ -18,7 +18,7 @@ The first command determines the number of cores on the server:
 $ grep processor /proc/cpuinfo | wc -l
 ```
 
-If this command returns ```1``` then we have 1 core on your server. Then ```1``` is the number of ```worker_processes``` to set in our Nginx configuration
+If this command returns ```4``` then we have 4 core on your server. Then ```4``` is the number of ```worker_processes``` to set in our Nginx configuration
 
 The second command determines the core's limitations:
 
@@ -31,7 +31,7 @@ If this command returns ```1024```, then that's the number of ```worker_connecti
 Based on the results of these two commands, we will modify the top of the ```nginx.conf``` file
 
 ```text
-worker_processes 1;
+worker_processes 4;
 worker_connections 1024;
 ```
 
@@ -72,97 +72,60 @@ $ sudo systemctl status nginx
 
 You should see that Nginx is activate and running.
 
-Next we will add a map block to the ```nginx.conf``` file to ensure http connections are upgraded. In ```nginx.conf``` find the lines:
-
-```text
-...
-include /etc/nginx/mime.types;
-default_type application/octet-stream;
-...
-```
-
-Replace the block above with the block below:
-
-```text
-...
-include /etc/nginx/mime.types;
-default_type application/octet-stream;
-
-map $http_upgrade $connection_upgrade {
-   default upgrade;
-   '' close;
-   }
-...
-```
-
-Save the ```nginx.conf``` file and restart Nginx again and check the status:
-
-```text
-$ sudo systemctl restart nginx
-$ sudo systemctl status nginx
-```
-
-Nginx should be running fine with no errors.
-
 ## Modify sites-available
 
-According to [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04) and [this tutorial], we should modify the ```sites-available``` file and create a symbolic link to the ```sites-enabled``` file. The ```nginx.conf``` file shows that it will ```include /etc/nginx/sites-enabled/*```.
+For each site served by nginx, there is a configuration file in ```sites-available``` that is linked using a symbolic link to the ```sites-enabled``` directory. The ```nginx.conf``` file shows that it will ```include /etc/nginx/sites-enabled/*```.
 
-Open a new file in ```/etc/nginx/sites-available``` called ```jupyterhub```
+That directory already contains a `default` configuration file with entries from Certbot. We start by copying that file over to a new one and then modify it to include the JupyterHub settings. 
 
 ```text
+$ cd /etc/nginx/sites-available
+$ sudo cp default jupyterhub
 $ sudo nano /etc/nginx/sites-available/jupyterhub
 ```
-
-Paste the following server blocks into the file:
+Leave the `server` block at the end intact (redirecting all http traffic to https), it should look something like this:
 
 ```text
-# /etc/nginx/sites-available/jupyterhub
+server {
+    if ($host = m09vm14.ma.tum.de) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
 
-    # All regular http requests on port 80 become SSL/HTTPS requests on port 32
-    server {
-        listen 80;
-        server_name mydomain.org;
-        # Tell all requests to port 80 to be 302 redirected to HTTPS
-        return 302 https://$host$request_uri;
-    }
 
-    server {
-        #listen 443 ssl default_server;
-        listen 443;
-        ssl on;
-        # !!! make sure to change to your domain name !!!
-        server_name engr101lab.org;
-        ## SSL Protocals
-        ssl_certificate /etc/letsencrypt/live/engr101lab.org/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/engr101lab.org/privkey.pem;
-        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-        ssl_prefer_server_ciphers on;
-        ssl_dhparam /srv/jupyterhub/dhparam.pem;
-        # Make site accessible from http://localhost/ server_name localhost; certs sent to the client in SERVER HELLO are concatenated in
-        ssl_session_timeout 1d;
-        ssl_session_cache shared:SSL:50m;
-        ssl_stapling on;
-        ssl_stapling_verify on;
-        # modern configuration. tweak to your needs.
-        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
-        # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
-        add_header Strict-Transport-Security max-age=15768000;
+        listen 80 ;
+        listen [::]:80 ;
+    server_name m09vm14.ma.tum.de;
+    return 404; # managed by Certbot
+}
+```
 
-        location / {
-            proxy_pass http://127.0.0.1:8000;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-NginX-Proxy true;
-            #proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
+Remove any other server blocks that contain a `listen 80` statement. There is also a server block with a `listen 443` statement that ends with the following lines:
+
+```text
+listen [::]:443 ssl ipv6only=on; # managed by Certbot
+listen 443 ssl; # managed by Certbot
+ssl_certificate /etc/letsencrypt/live/m09vm14.ma.tum.de/fullchain.pem; # managed by Certbot
+ssl_certificate_key /etc/letsencrypt/live/m09vm14.ma.tum.de/privkey.pem; # managed by Certbot
+include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+```
+
+Remove everything else from that `server` block, then add the following lines:
+
+```text
+location / {
+    proxy_pass http://127.0.0.1:8000;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-NginX-Proxy true;
+    #proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
         }
-        location ~ /.well-known {
-            allow all;
-        }
-    }
+location ~ /.well-known {
+    allow all;
+}
 ```
 
 Save and close the ````/etc/nginx/sites-available/jupyterhub``` file.
@@ -175,6 +138,12 @@ To create the symbolic link, use the command below:
 
 ```text
 $ sudo ln -s /etc/nginx/sites-available/jupyterhub /etc/nginx/sites-enabled
+```
+
+Finally, remove the default site:
+
+```text
+$ sudo rm /etc/nginx/sites-enable/default
 ```
 
 ## Test out the new Nginx configuration
@@ -207,7 +176,7 @@ We are looking for something like:
    Active: active (running) since Thu 2019-02-07 00:40:10 UTC; 7s ago
 ```
 
-Now browse to the domain name we added to the server. If you use ```http://mydomain.org``` you should be re-directed to ```https://mydomain.org```.
+Now browse to the domain name we added to the server. If you use ```http://m09vm4.ma.tum.de``` you should be re-directed to ```https://m09vm4.ma.tum.de```.
 
 Since JupyterHub isn't hooked up to Nginx yet, you should see a 502 Bad Gateway Error. But that error should show nginx in the error text.
 
@@ -215,12 +184,10 @@ Since JupyterHub isn't hooked up to Nginx yet, you should see a 502 Bad Gateway 
 
 ## Summary
 
-In this section we modified the ```nginx.conf``` file and created a server configuration in ```/etc/nginx/sites-available```. Then we created a symbolic link betweeefile in ```sites-available``` to ```sites-enabled```
+In this section we modified the ```nginx.conf``` file and created a server configuration in ```/etc/nginx/sites-available```. Then we created a symbolic link from the file in ```sites-available``` to ```sites-enabled``` and disabled the standard nginx site.
 
 Then we checked the Nginx configuration was valid and restarted Nginx.
 
 ## Next Steps
 
-The next step configure JupyterHub by creating and modifying a ```jupyterhub_config.py``` file.
-
-<br>
+The next step is to configure JupyterHub by creating and modifying a ```jupyterhub_config.py``` file.

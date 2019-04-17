@@ -28,7 +28,7 @@ pwd
 $ sudo nano jupyterhub.service
 ```
 
-In the ```jupyterhub.service``` file, add the following. Note that as part of the ```PATH``` environment variable ```/opt/miniconda3/envs/jupyterhub/bin/``` is included. This is the path to our virtual environment. As part of the ```ExecStart= ``` section, we include a flag for our JupyterHub config file located at  ```/etc/jupyterhub/jupyterhub_config.py```. 
+In the ```jupyterhub.service``` file, add the following. Note that as part of the ```PATH``` environment variable ```/srv/jupyterhub/venv/bin/``` is included. This is the path to our virtual environment. As part of the ```ExecStart= ``` section, we include a flag for our JupyterHub config file located at  ```/etc/jupyterhub/jupyterhub_config.py```. 
 
 ```text
 [Unit]
@@ -37,8 +37,8 @@ After=syslog.target network.target
 
 [Service]
 User=root
-Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/miniconda3/envs/jupyterhub/bin/"
-ExecStart=/opt/miniconda3/envs/jupyterhub/bin/jupyterhub -f /etc/jupyterhub/jupyterhub_config.py
+Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/srv/jupyterhub/venv/bin/"
+ExecStart=/srv/jupyterhub/venv/bin/jupyterhub -f /etc/jupyterhub/jupyterhub_config.py
 
 [Install]
 WantedBy=multi-user.target
@@ -62,11 +62,9 @@ $ sudo systemctl status jupyterhub
  Active: active (running)
 ```
 
-<br>
+## Test local Authentication
 
-## Test local OAuth
-
-Now we can point a web browser at our domain name and log into JupyterHub as our non-root user ```peter``` and the password we set for ```peter``` on the server. This time we are running with SSL security in place and even if we browse to ```http://mydomain.com```, Nginx will forward us to ```https://mydomain.com```.
+Now we can point a web browser at our domain name and log into JupyterHub as our non-root user ```ritter``` and the password we set for ```ritter``` on the server. This time we are running with SSL security in place and even if we browse to ```http://m09vm14.ma.tum.de```, Nginx will forward us to ```https://m09vm14.ma.tum.de```.
 
 The JupyterHub login screen looks something like the screen capture below:
 
@@ -87,6 +85,4 @@ In this section, we got JupyterHub running as a system service. We created a ```
 
 ## Next Steps
 
-The next step is to add users to our server and see if we can log in as a different user than our non-root sudo user, ```peter```.
-
-<br>
+The next step is to add users to our server and see if we can log in as a different user than our non-root sudo user, ```ritter```.
