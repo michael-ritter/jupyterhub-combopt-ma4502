@@ -45,21 +45,20 @@ Before we install JupyterHub on the server, we need to install a current version
     $ python3.7 --version
     ```
     
-## Create a virtual environment and install and packages
+## Create a virtual environment and install packages
 
-For this JupyterHub install, we are going to create a conda environment (a virtual environment) and install packages into that environment. We'll call the conda environment ```jupyterhub``` and use ```python=3.7``` as our Python version. Then activate the ```jupyterhub``` environment and install **NumPy**, **Matplotlib**, **Pandas** and **Jupyter**. Also don't forget to install **xlrd**, this package is needed for **Pandas** to read ```.xlsx``` files. 
+For this JupyterHub install, we are going to create a virtual environment and install packages into that environment. We'll call the virtual environment ```jupyterhub``` and use `python3.7` as our Python version. Then activate the ```jupyterhub``` environment and install **NumPy**, **Matplotlib**, **Pandas** and **Jupyter**. Also don't forget to install **xlrd**, this package is needed for **Pandas** to read ```.xlsx``` files. 
 
-Finally, install **JupyterLab** and **JupyterHub** from the ```conda-forge``` channel.
+Finally, we install **JupyterLab** and **JupyterHub**.
 
-```text
-$ conda create -n jupyterhub python=3.7
-$ conda activate jupyterhub
-$(jupyterhub) conda install numpy matplotlib pandas xlrd jupyter notebook
-$(jupyterhub) conda install -c conda-forge jupyterlab
-$(jupyterhub) conda install -c conda-forge jupyterhub
+```bash
+$ mkdir -p /srv/jupyterhub
+$ cd /srv/jupyterhub
+$ python3.7 -m venv venv
+$ source ./venv/bin/activate
+$(jupyterhub) pip install numpy matplotlib pandas xlrd
+$(jupyterhub) pip install jupyterlab jupyterhub
 ```
-
-<br>
 
 ## Run a very unsecured instance of Jupyter Hub just to see if it works
 
@@ -69,42 +68,33 @@ OK- let's give JupyterHub a whirl. We'll start JupterHub for the first time. Not
 $(jupyterhub) jupyterhub --no-ssl
 ```
 
-We see some output in the PuTTY window. The last line is something like ```JupyterHub is now running at http://:8000/```. The first time I set up JupyterHub, I wasn't able to see the site using a web browser. No web page loaded, and the connection timed out.
+We see some output in the terminal window. The last line is something like ```JupyterHub is now running at http://:8000/```. The first time I set up JupyterHub, I wasn't able to see the site using a web browser. No web page loaded, and the connection timed out.
 
 ![site can't be reached](images/site_cant_be_reached.png)
 
-Why? It turns out Digital Ocean installs a firewall called **ufw** by default and turns the **ufw** firewall on. When the server was created, ufw was configured to only allow incoming connections on ports 22, 80 and 433. The output below is shown when we first log into the Digital Ocean server:
-
-```text
-"ufw" has been enabled. All ports except 22 (SSH), 80 (http) and 443 (https)
-have been blocked by default.
-```
-
-But **JupyterHub runs on port 8000** - it tells us so when JupyterHub starts. So we need to configure **ufw** to allow connections on port 8000 (at least for now, just to see if JupyterHub works). 
+Why? It turns out the firewall blocks port 8000 by default. But **JupyterHub runs on port 8000** - it tells us so when JupyterHub starts. So we need to configure **ufw** to allow connections on port 8000 (at least for now, just to see if JupyterHub works). 
 
 To allow communication on port 8000 and start JupyterHub, type:
 
 ```text
 $(jupyterhub) sudo ufw allow 8000
-# make sure the (jupyterhub) conda env is activated
+# make sure the (jupyterhub) virtual environment is activated
 
 $(jupyterhub) jupyterhub --no-ssl
 ```
 
-Now we can browse to the server IP address of our Digital Ocean Droplet appended with ```:8000```. The web address should look something like: ```http://165.228.68.178:8000```. You can find the IP address of the server by going into the Digital Ocean dashboard. 
+Now we can browse to the server appended with ```:8000```. The web address should look something like: ```http://m09vm14.ma.tum.de:8000```. Note this only works from inside the department network, from the outside you will have to use a technique like ssh forwarding to connect. We will take care of that later using a webserver as a reverse proxy
 
 The JupyterHub login screen looks like:
 
 ![jupyter hub no ssl login](images/jupyterhub_no_ssl_login.png)
 
-Awesome! Quick log into JupyterHub using the username and password for the non-root sudo user (in my case ```peter```) that we set up earlier and are running as in our current PuTTY session. 
+Awesome! Quick log into JupyterHub using the username and password for the non-root sudo user (in my case ```ritter```) that was set up earlier with the VM.
 
 You should see the typical notebook file browser with all the files you can see when you run ```ls ~/```. Try creating and running a new Jupyter notebook. The notebook works just like a **Jupyter notebook running locally**.
 
 ![start my server](images/start_my_server.png)
 ![jupyter file browser](images/jupyter_file_browser.png)
-
-<br>
 
 ## Quick! Log out and shut down JupyterHub
 
@@ -131,14 +121,11 @@ OpenSSH (v6)               ALLOW       Anywhere (v6)
 
 ## Summary
 
-In this section, we installed **Miniconda** onto the server. We made sure **Miniconda** was installed in the ```/opt``` directory and then changed the directory permissions so that our non-root sudo user can use the **Miniconda** installation. 
+In this section, we installed **Python 3.7** on the server. Next we created a Python 3.7 virtual environment and installed NumPy, Matplotlib, Pandas, xlrd, and Jupyter into it. Then we installed JupyterLab and JupyterHub into the virtual environment. Finally we ran a very un-secure instance of JupyterHub with no SSL encryption to make sure our installation is working. 
 
-Next we created a Python 3.7 virtual environment and installed NumPy, Matplotlib, Pandas, xlrd, and Jupyter into it. Then we installed JupyterLab and JupyterHub into the virtual environment from the ```conda-forge``` channel. Finally we ran a very un-secure instance of JupyterHub with no SSL encryption. 
-
-**Running JupyterHub without SSL encryption is NOT ADVISED**.
+!!! warning
+    **Running JupyterHub without SSL encryption is NOT ADVISED.**
 
 ## Next Steps
 
-The next step is to acquire a domain name and link the domain name to our Digital Ocean server.
-
-<br>
+The next step is to acquire SSL certificates for our server.
