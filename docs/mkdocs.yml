@@ -17,6 +17,7 @@ theme:
 # Markdown Extensions
 markdown_extensions:
   - admonition
+  - codehilite
   - footnotes
   - toc
   - pymdownx.smartsymbols
@@ -39,6 +40,7 @@ nav:
   - JupyterHub Configuration: jupyterhub_config.md
   - System Service: systemd.md
   - Add Users: add_users.md
+  - Add Imprint and Privacy Statement: imprint_privacy.md
   - Google OAuth: google_oauth.md
   - Custom Login Page: custom_login_page.md
   - Assignments on GitHub: assignments_on_github.md

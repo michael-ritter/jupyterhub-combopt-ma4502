@@ -39,6 +39,7 @@ There will be a lot of commented out text in the ```jupyterhub_config.py``` file
 c = get_config()
 c.JupyterHub.log_level = 10
 c.Spawner.cmd = '/srv/jupyterhub/venv/bin/jupyterhub-singleuser'
+c.Spawner.default_url = '/lab' # optional: switch to lab interface upon login
 
 # Cookie Secret Files
 c.JupyterHub.cookie_secret_file = '/srv/jupyterhub/jupyterhub_cookie_secret'
@@ -49,6 +50,23 @@ c.Authenticator.whitelist = {'ritter'}
 c.Authenticator.admin_users = {'ritter'}
 
 ...
+```
+
+Note the optional line
+
+```text
+c.Spawner.default_url = '/lab' # optional: switch to lab interface upon login
+```
+
+This line activates the JuypterLab interface diredtly upon login. You may safely comment it out if you would rather want the classic Jupyter Notebooks interface (which is the default setting). JuypterLabs is still active and a user may manually switch to the new interface through appending ```/lab```to the url.
+
+## Optinal: Install Jupyterhub Lab Extensions
+If you are planning to use JupyterLab instead of the classic JupyterNotebooks interface, you may install the lab extensions into jupyter hub through the following command:
+
+```text
+$ cd /srv/jupyterhub
+$ source /srv/jupyterhub/venv/bin/activate
+(venv)$ jupyter labextension install @jupyterlab/hub-extension
 ```
 
 ## Restart Nginx and start Jupyterhub, see if we can login
