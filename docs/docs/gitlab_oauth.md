@@ -96,6 +96,8 @@ Once we get our Gitlab OAuth credentials, we need to edit ```jupyterhub_conf.py`
 # used to read the json gitlab oauth config file
 import json
 
+from oauthenticator.gitlab import LocalGitLabOAuthenticator
+
 # PAM Authenticator
 
 c = get_config()
@@ -114,20 +116,19 @@ c.ConfigurableHTTPProxy.auth_token = '/srv/jupyterhub/proxy_auth_token'
 # sets a custom html template at the login screen.
 c.JupyterHub.template_paths = ['/srv/jupyterhub/custom-templates/']
 
-from oauthenticator.gitlab import GitLabOAuthenticator
-c.JupyterHub.authenticator_class = GitLabOAuthenticator
+c.JupyterHub.authenticator_class = LocalGitLabOAuthenticator
 
 with open('/etc/jupyterhub/gitlab_oauth_credentials.json') as f:
     gitlab_oauth = json.load(f)
 
-c.GitLabOAuthenticator.client_id = gitlab_oauth['web']['application_id']
-c.GitLabOAuthenticator.client_secret = gitlab_oauth['web']['secret']
+c.LocalGitLabOAuthenticator.client_id = gitlab_oauth['web']['application_id']
+c.LocalGitLabOAuthenticator.client_secret = gitlab_oauth['web']['secret']
 
-c.GitLabOAuthenticator.oauth_callback_url = 'https://m09vm14.ma.tum.de/hub/oauth_callback' # replace with your domain
-c.GitLabOAuthenticator.create_system_users = True
+c.LocalGitLabOAuthenticator.oauth_callback_url = 'https://m09vm14.ma.tum.de/hub/oauth_callback' # replace with your domain
+c.LocalGitLabOAuthenticator.create_system_users = True
 c.Authenticator.add_user_cmd = ['adduser', '-q', '--gecos', '""', '--disabled-password', '--force-badname']
-c.GitLabOAuthenticator.hosted_domain = 'ma.tum.de'   # replace with your domain
-c.GitLabOAuthenticator.login_service = 'Technische Universität München'  # replace with your 'College Name'
+c.LocalGitLabOAuthenticator.hosted_domain = 'ma.tum.de'   # replace with your domain
+c.LocalGitLabOAuthenticator.login_service = 'Technische Universität München'  # replace with your 'College Name'
 
 # Users
 #c.Authenticator.whitelist = {'ritter','viviana'}
