@@ -1,4 +1,5 @@
 site_name: JupyterHub-Deployment-CombOpt
+dev_addr: 127.0.0.1:8001
 
 theme:
   name: 'material'
@@ -21,7 +22,7 @@ markdown_extensions:
   - footnotes
   - toc
   - pymdownx.smartsymbols
-repo_url: https://github.com/michael-ritter/jupyterhub-combopt
+repo_url: https://github.com/michael-ritter/jupyterhub-combopt-ma4502
 extra_css: 
     - static/css/toc.css
 copyright: 'Copyright &copy; 2019 Peter D. Kazarinoff, Michael Ritter'
