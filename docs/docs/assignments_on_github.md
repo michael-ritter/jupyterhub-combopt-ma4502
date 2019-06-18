@@ -6,7 +6,7 @@ Now we'll build a set of pre-constructed assignments and notes for each JupyterH
 
 ## Create a repo of assignments on GitHub.com
 
-Log onto to GitHub.com, and create a new repo with the notes and assignments for the quarter.
+Log onto to GitHub.com, and create a new repo with the notes and assignments for the course.
 
 ![new repo](images/gh_new_repo.png)
 
@@ -20,20 +20,16 @@ On a local computer, not the server, clone the GitHub repo. This allows us to wo
 
 ```text
 # local computer
-$ mkdir ENGR101
-$ cd ENGR101
-$ git init
-$ git remote add origin https://github.com/username/reponame.git
-$ git pull origin master
+$ git clone https://github.com/username/reponame.git
 ```
 
 ## Create the assignments and notes
 
-On the local computer, not the server, build the assignment and notes for the quarter. I did this using Jupyter notebooks.
+On the local computer, not the server, build the assignment and notes for the semester. I did this using Jupyter notebooks.
 
 ![notebook of notes for the quarter](images/nb_notes_intro_to_jupyter.png)
 
-Save all of the changes locally. Add any files that you don't want students to see to .gitignore.
+Save all of the changes locally. Add any files that you don't want students to see to .gitignore. Good templates for .gitignore are available over at [gitignore.io](https://gitignore.io).
 
 ## Push the completed assignments and notes up to GiHub
 
@@ -48,10 +44,8 @@ $ git push origin master
 
 ## Summary
 
-In this section, we built a set of notes and assignments for the quarter on GitHub. First a new repo was created on GitHub.com. A `````.gitignore````` file corresponding to Python and a license were added to the repo when the repo was created. Next we pulled to repo down to our local computer and built the assignments and notes. Finally we pushed the changes up to Github.
+In this section, we built a set of notes and assignments for the semester on GitHub. First a new repo was created on GitHub.com. A `````.gitignore````` file corresponding to Python and a license were added to the repo when the repo was created. Next we pulled to repo down to our local computer and built the assignments and notes. Finally we pushed the changes up to Github.
 
 ## Next Steps
 
 Next, we'll use a JupyterHub extension called **nbgitpuller** which copies the notes and assignments we just saved to GitHub into each students home folder when they log into JupyterHub.
-
-<br>

@@ -1,11 +1,10 @@
-# Welcome to the JupyterHub Deployment Docs for Combinatorial
-Optimization 2019-S
+# Welcome to the JupyterHub Deployment Docs for Combinatorial Optimization 2019-S
 
 This documentation serves as a record of the [JupyterHub](https://jupyter.org/hub) Deployment for MA4502 Combinatorial Optimization Summer 2019 at Technische Universität München. It is based on the [GitHub repository](https://github.com/ProfessorKazarinoff/jupyterhub-engr101) for a similar installation of Peter D. Kazarinoff for Portland Community College.
 
-The GitHub repo for the deployment can be found here: 
+The GitHub repo for the deployment can be found here:
 
- > 
+ >
 [https://github.com/michael-ritter/jupyterhub-combopt-ma4502.git](https://github.com/michael-ritter/jupyterhub-combopt-ma4502.git)
 
 Click the menu items on the left to view the deployment steps.
@@ -24,7 +23,6 @@ Or start [Here](what_is_jupyterhub.md) and click the arrows at the bottom of eac
 * Install and configure Nginx
 * Configure JupyterHub
 * JupyterHub as system service
-* optional: Google Authentication
-* optional: Create custom login page
+* optional: Gitlab Authentication
 * Pull assignments down from GitHub for each user
 * Extra configuration

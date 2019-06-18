@@ -43,8 +43,8 @@ nav:
   - Add Users: add_users.md
   - Add Imprint and Privacy Statement: imprint_privacy.md
   - GitLab OAuth: gitlab_oauth.md
-  - Google OAuth: google_oauth.md
-  - Custom Login Page: custom_login_page.md
+  #- Google OAuth: google_oauth.md
+  # - Custom Login Page: custom_login_page.md
   - Assignments on GitHub: assignments_on_github.md
   - nbgitpuller Plugin: nbgitpuller_plugin.md
   - Extra Configuration: extra_configuration.md

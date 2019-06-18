@@ -1,6 +1,6 @@
 # Extra Configuration
 
-In this section, we will go over some extra configuration settings we can set in ```jupyterhub_config.py``` to help our JupyterHub deployment hum along and help if students forget to logout or too many student try and log in at the same time. 
+In this section, we will go over some extra configuration settings we can set in ```jupyterhub_config.py``` to help our JupyterHub deployment hum along and help if students forget to logout or too many student try and log in at the same time.
 
 [TOC]
 
@@ -12,40 +12,40 @@ In the JupyterHub docs, there is a list of configuration options and description
 
 A couple configuration options in the list seem like good ideas:
 
-The class has 24 students, plus one instructor. Given that class size, I think 26 is a good number for the maximum that can use JupyterHub the same time. 
+The class has about 40 students, plus one instructor. Given that class size, I think 100 is a good number for the maximum that can use JupyterHub the same time. The following settings can be configured in `/etc/jupyterhub/jupyterhub_config.py`:
 
 ```text
-config c.JupyterHub.active_server_limit = Int(0)
+c.JupyterHub.active_server_limit = 100
 # Maximum number of concurrent servers that can be active at a time.
 ```
 
-Having too many users log in all at the same time can overload the server. Let's set this as 13, so half of the class can log in at the same time.
+Having too many users log in all at the same time can overload the server. Let's set this as 20, so half of the class can log in at the same time.
 
 ```text
-config c.JupyterHub.concurrent_spawn_limit = Int(100)
+c.JupyterHub.concurrent_spawn_limit = 20
 Maximum number of concurrent users that can be spawning at a time.
 ```
 
 A couple settings relate to shutting down the hub and if user servers shut down too. I want it set so that if I shut down the hub, all the user servers are shut down too.
 
 ```text
-config c.JupyterHub.cleanup_proxy = Bool(True)
+c.JupyterHub.cleanup_proxy = True
 # Whether to shutdown the proxy when the Hub shuts down.
 ```
 
 ```text
-config c.JupyterHub.cleanup_servers = Bool(True)
+c.JupyterHub.cleanup_servers = True
 # Whether to shutdown single-user servers when the Hub shuts down.
 ```
 
 ## Cull Idle Servers
 
-A problem with the first two JupyterHub deployments was that some students would not shut down their server when they were done working. Then twenty or so servers would all keep running all the time. 
+A problem with JupyterHub deployments might be that some students would not shut down their server when they were done working. Then fourty or so servers would all keep running all the time. The following is kept as a reference, I did not implement it this time:
 
 This script from the JupyterHub Examples repo looks like it might help:
 
  > [https://github.com/jupyterhub/jupyterhub/tree/master/examples/cull-idle](https://github.com/jupyterhub/jupyterhub/tree/master/examples/cull-idle)
- 
+
 To get the ```cull_idle_servers.py``` script to run as a JupyterHub service, it looks like you need to add the following to ```jupyterhub_config.py```. (Based on [this page](https://github.com/jupyterhub/jupyterhub/tree/master/examples/cull-idle) in the JupyterHub docs)
 
 ```text
@@ -150,5 +150,3 @@ Finally we uploaded the modified ```jupyterhubconfig.py``` configuration file an
 ## Additional Extras
 
 That's it for the main JupyterHub deployment! The next section is about periodic maintenance. After running JupyterHub for two quarters there are a couple lessons learned server regarding maintenance.
-
-<br>
