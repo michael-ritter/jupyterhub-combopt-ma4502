@@ -1,4 +1,4 @@
-# jupyterhub-engr101
+# jupyterhub-combopt-ma4502
 
 JupyterHub deployment for MA4502 "Combinatorial Optimization" at TUM.
 
