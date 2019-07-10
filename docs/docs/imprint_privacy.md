@@ -6,7 +6,7 @@ Next, we'll add an imprint and a privacy statement to the jupyterhub configurati
 
 ## Copy templates
 
-We start by copying the login page template where we will add two links to imprint and privacy statement pages. 
+We start by copying the login page template where we will add two links to imprint and privacy statement pages.
 
 ```bash
 $ cd /srv/jupyterhub
@@ -19,7 +19,7 @@ $ source /srv/jupyterhub/venv/bin/activate
 
 Modify the template to your liking. As an example, we could use the following ```login.html```:
 
-```
+```html
 {% extends "templates/login.html" %}
 
 {% block login %}
