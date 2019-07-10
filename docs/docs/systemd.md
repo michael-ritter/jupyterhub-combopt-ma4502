@@ -30,11 +30,7 @@ $ sudo nano jupyterhub.service
 
 In the ```jupyterhub.service``` file, add the following. Note that as
 part of the ```PATH``` environment variable
-```/srv/jupyterhub/venv/bin/``` is included. This is the path to our virtual environment.  Optionally, you may also
-include environment variables for MIP solvers such as gurobi or
-xpress. In the following example, we included the necessary settings
-for a gurobi set up at ```/opt/gurobi```. As part of the ```ExecStart=
-``` section, we include a flag for our JupyterHub config file located
+```/srv/jupyterhub/venv/bin/``` is included. This is the path to our virtual environment. As part of the ```ExecStart=``` section, we include a flag for our JupyterHub config file located
 at  ```/etc/jupyterhub/jupyterhub_config.py```.  The example also
 includes a setting for GitLab that will only become relevant later.
 Feel free to not include that for now, especially if you do not plan
@@ -48,9 +44,6 @@ After=syslog.target network.target
 [Service]
 User=root
 Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/srv/jupyterhub/venv/bin/:/opt/gurobi/linux64/bin"
-Environment="GUROBI_HOME=/opt/gurobi/linux64"
-Environment="GRB_LICENSE_FILE=/opt/gurobi/linux64/bin/gurobi.lic"
-Environment="LD_LIBRARY_PATH=/opt/gurobi/linux64/lib"
 Environment="GITLAB_HOST=https://gitlab.lrz.de"
 ExecStart=/srv/jupyterhub/venv/bin/jupyterhub -f /etc/jupyterhub/jupyterhub_config.py
 
