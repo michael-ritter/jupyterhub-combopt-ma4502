@@ -561,6 +561,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#license-file" title="License File" class="md-nav__link">
+    License File
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuring-environment-variables-for-gurobi" title="Configuring Environment Variables for Gurobi" class="md-nav__link">
     Configuring Environment Variables for Gurobi
   </a>
@@ -693,6 +700,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#license-file" title="License File" class="md-nav__link">
+    License File
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuring-environment-variables-for-gurobi" title="Configuring Environment Variables for Gurobi" class="md-nav__link">
     Configuring Environment Variables for Gurobi
   </a>
@@ -770,6 +784,12 @@ directory <code>/opt/gurobi/linux64</code> and issue the following command</p>
 
 <p>This will make sure that the Gurobi modules are installed into the
 correct environment.</p>
+<h2 id="license-file">License File</h2>
+<p>The Gurobi license file should be located at <code>/opt/gurobi/linux64/bin/gurobi.lic</code>. If your license is stored elsewhere, please remember to set the variable <code>GRB_LICENSE_FILE</code> in the next section accordingly. If you plan to use a token server for Gurobi, you should deploy a license file with the following contents, adapted to your situation:</p>
+<div class="codehilite"><pre><span></span>TOKENSERVER=gurobi-license-server.demo.invalid
+</pre></div>
+
+
 <h2 id="configuring-environment-variables-for-gurobi">Configuring Environment Variables for Gurobi</h2>
 <p>Gurobi needs to set a few environment variables to work properly. We
 will automate this by setting the appropriate variables in the
