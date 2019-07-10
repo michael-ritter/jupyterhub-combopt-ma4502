@@ -76,12 +76,4 @@ for var in os.environ:
     c.Spawner.env_keep.append(var)
 ```
 
-## Restarting JupyterHub
-Do not forget to restart the JupyterHub daemon so that the settings
-take effect. 
 
-```
-$ sudo systemctl daemon-reload
-$ sudo service jupyterhub stop
-$ sudo service jupyterhub start
-```
