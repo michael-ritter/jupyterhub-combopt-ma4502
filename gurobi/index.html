@@ -587,13 +587,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#restarting-jupyterhub" title="Restarting JupyterHub" class="md-nav__link">
-    Restarting JupyterHub
-  </a>
-  
-</li>
-      
       
       
       
@@ -719,13 +712,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#restarting-jupyterhub" title="Restarting JupyterHub" class="md-nav__link">
-    Restarting JupyterHub
-  </a>
-  
-</li>
-      
       
       
       
@@ -811,15 +797,6 @@ necessary, so we will add the following lines to the file <code>/etc/jupyterhub/
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
     <span class="n">c</span><span class="o">.</span><span class="n">Spawner</span><span class="o">.</span><span class="n">env_keep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
-</pre></div>
-
-
-<h2 id="restarting-jupyterhub">Restarting JupyterHub</h2>
-<p>Do not forget to restart the JupyterHub daemon so that the settings
-take effect. </p>
-<div class="codehilite"><pre><span></span>$ sudo systemctl daemon-reload
-$ sudo service jupyterhub stop
-$ sudo service jupyterhub start
 </pre></div>
                 
                   
