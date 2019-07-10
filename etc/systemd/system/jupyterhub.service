@@ -4,8 +4,13 @@ After=syslog.target network.target
 
 [Service]
 User=root
-Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/miniconda3/envs/jupyterhub/bin/"
-ExecStart=/opt/miniconda3/envs/jupyterhub/bin/jupyterhub -f /etc/jupyterhub/jupyterhub_config.py
+Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/srv/jupyterhub/venv/bin/:/opt/gurobi/linux64/bin"
+Environment="GUROBI_HOME=/opt/gurobi/linux64"
+Environment="GRB_LICENSE_FILE=/opt/gurobi/linux64/bin/gurobi.lic"
+Environment="LD_LIBRARY_PATH=/opt/gurobi/linux64/lib"
+Environment="GITLAB_HOST=https://gitlab.lrz.de"
+ExecStart=/srv/jupyterhub/venv/bin/jupyterhub -f /etc/jupyterhub/jupyterhub_config.py
 
 [Install]
 WantedBy=multi-user.target
+
