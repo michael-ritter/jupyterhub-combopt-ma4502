@@ -27,6 +27,12 @@ directory ```/opt/gurobi/linux64``` and issue the following command
 This will make sure that the Gurobi modules are installed into the
 correct environment.
 
+## License File
+The Gurobi license file should be located at ```/opt/gurobi/linux64/bin/gurobi.lic```. If your license is stored elsewhere, please remember to set the variable ```GRB_LICENSE_FILE``` in the next section accordingly. If you plan to use a token server for Gurobi, you should deploy a license file with the following contents, adapted to your situation:
+
+```
+TOKENSERVER=gurobi-license-server.demo.invalid
+```
 
 ## Configuring Environment Variables for Gurobi
 Gurobi needs to set a few environment variables to work properly. We
