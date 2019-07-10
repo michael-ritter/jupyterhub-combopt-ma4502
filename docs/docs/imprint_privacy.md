@@ -20,7 +20,6 @@ $ source /srv/jupyterhub/venv/bin/activate
 Modify the template to your liking. As an example, we could use the following ```login.html```:
 
 ```
-{% raw %}
 {% extends "templates/login.html" %}
 
 {% block login %}
@@ -28,7 +27,6 @@ Modify the template to your liking. As an example, we could use the following ``
 
 <div class="container"><div class="row"><a class="pull-left" href="/hub/static/about.html">About / Impressum</a><a class="pull-right" href="/hub/static/privacy.html">Privacy Statement / Datenschutzerklärung</a></div></div>
 {% endblock %}
-{% endraw %}
 ```
 
 ## Modify jupyterhub_config.py
