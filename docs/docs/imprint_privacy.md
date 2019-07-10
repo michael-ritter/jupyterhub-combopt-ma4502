@@ -19,7 +19,7 @@ $ source /srv/jupyterhub/venv/bin/activate
 
 Modify the template to your liking. As an example, we could use the following ```login.html```:
 
-```html
+```
 {% extends "templates/login.html" %}
 
 {% block login %}
