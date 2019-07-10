@@ -1,11 +1,5 @@
-# jupyterhub-engr101
+# jupyterhub-combopt-ma4502
 
-JupyterHub deployment for ENGR101 Winter 2019 at Portland Community College.
+JupyterHub deployment for MA4502 "Combinatorial Optimization" at TUM.
 
-For the docs on how the JupyterHub deployment was completed see:
-
- > [https://professorkazarinoff.github.io/jupyterhub-engr101/](https://professorkazarinoff.github.io/jupyterhub-engr101/)
-
-To see the Login page of this JupyterHub deployment (will only work during Winter quarter 2019):
-
- > [https://engr101lab.org](https://professorkazarinoff.github.io/jupyterhub-engr101/)
+For the docs on how the JupyterHub deployment was completed see `docs` in this repository.
