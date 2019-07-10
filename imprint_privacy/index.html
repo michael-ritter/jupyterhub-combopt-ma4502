@@ -791,7 +791,7 @@
 </ul>
 </div>
 <h2 id="copy-templates">Copy templates</h2>
-<p>We start by copying the login page template where we will add two links to imprint and privacy statement pages. </p>
+<p>We start by copying the login page template where we will add two links to imprint and privacy statement pages.</p>
 <div class="codehilite"><pre><span></span>$ <span class="nb">cd</span> /srv/jupyterhub
 $ <span class="nb">source</span> /srv/jupyterhub/venv/bin/activate
 <span class="o">(</span>venv<span class="o">)</span>$ mkdir custom-templates
@@ -801,13 +801,13 @@ $ <span class="nb">source</span> /srv/jupyterhub/venv/bin/activate
 
 <h2 id="modify-templates">Modify templates</h2>
 <p>Modify the template to your liking. As an example, we could use the following <code>login.html</code>:</p>
-<div class="codehilite"><pre><span></span><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;templates/login.html&quot;</span> <span class="cp">%}</span>
+<div class="codehilite"><pre><span></span>{% extends &quot;templates/login.html&quot; %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">login</span> <span class="cp">%}</span>
-<span class="cp">{{</span> <span class="nb">super</span><span class="o">()</span> <span class="cp">}}</span>
+{% block login %}
+{{ super() }}
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;pull-left&quot;</span> <span class="na">href=</span><span class="s">&quot;/hub/static/about.html&quot;</span><span class="nt">&gt;</span>About / Impressum<span class="nt">&lt;/a&gt;&lt;a</span> <span class="na">class=</span><span class="s">&quot;pull-right&quot;</span> <span class="na">href=</span><span class="s">&quot;/hub/static/privacy.html&quot;</span><span class="nt">&gt;</span>Privacy Statement / Datenschutzerklärung<span class="nt">&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;</span>
-<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pull-left&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/hub/static/about.html&quot;</span><span class="p">&gt;</span>About / Impressum<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pull-right&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/hub/static/privacy.html&quot;</span><span class="p">&gt;</span>Privacy Statement / Datenschutzerklärung<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endblock %}
 </pre></div>
 
 
