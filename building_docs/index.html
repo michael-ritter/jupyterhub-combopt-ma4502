@@ -673,16 +673,16 @@
 </pre></div>
 
 
-<p>To build the docs locally, make sure you have Python installed (I use <a href="https://anaconda.com/downloads">Anaconda</a>). Start out by cloning the repo:</p>
-<div class="codehilite"><pre><span></span>git clone https://github.com/ProfessorKazarinoff/jupyterhub-engr101.git
+<p>To build the docs locally, make sure you have Python installed. Start out by cloning the repo:</p>
+<div class="codehilite"><pre><span></span>git clone https://github.com/michael-ritter/jupyterhub-combopt-ma4502.git
 </pre></div>
 
 
 <p><code>cd</code> into the cloned repo, and create a virtual environment. Install the Python packages needed to build the docs.</p>
-<div class="codehilite"><pre><span></span>cd jupyterhub-engr101.git
-conda create -n jupyterhub python=3.7
-conda activate jupyterhub
-(jupyterhub) pip install -r requirements.txt
+<div class="codehilite"><pre><span></span>cd jupyterhub-combopt-ma4502
+python3 -m venv venv
+source venv/bin/activate
+(venv) pip install -r requirements.txt
 </pre></div>
 
 

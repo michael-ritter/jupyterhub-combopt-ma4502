@@ -733,10 +733,10 @@
 </div>
 <h2 id="add-an-ssh-key">Add an SSH Key</h2>
 <p>The public SSH key we created needs to be added to the list of authorized keys for login to our server. To do this, open a terminal and enter the following commands (we will assume the server is called <code>m09vm14.ma.tum.de</code> and accessible from the network you are in):</p>
-<div class="codehilite"><pre><span></span>ssh m09vm14.ma.tum.de
-mkdir ~/.ssh
-cd ~/.ssh
-vim authorized_keys
+<div class="codehilite"><pre><span></span><span class="err">ssh m09vm14.ma.tum.de</span>
+<span class="err">mkdir ~/.ssh</span>
+<span class="err">cd ~/.ssh</span>
+<span class="err">vim authorized_keys</span>
 </pre></div>
 
 
@@ -802,8 +802,8 @@ Is the information correct? [Y/n]
 
 <h2 id="configuring-the-firewall">Configuring the firewall</h2>
 <p>Next, we need to open the <strong>ufw</strong> firewall to OpenSSH traffic. We we'll communicate with the server over SSH and need the <strong>ufw</strong> firewall to allow this type of communication through. While we're at it, let's also open ports 80 and 443 for http and https communications.</p>
-<div class="codehilite"><pre><span></span>$ sudo ufw deny incoming
-$ sudo ufw allow outgoing
+<div class="codehilite"><pre><span></span>$ sudo ufw ddefault eny incoming
+$ sudo ufw default allow outgoing
 $ sudo ufw allow ssh
 $ sudo ufw allow http
 $ sudo ufw allow https

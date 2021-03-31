@@ -778,7 +778,7 @@ $ ln -s gurobi811 gurobi
 <h2 id="installing-gurobi-into-the-virtual-environment">Installing Gurobi into the Virtual Environment</h2>
 <p>To install Gurobi into the virtual environment, change into the
 directory <code>/opt/gurobi/linux64</code> and issue the following command</p>
-<div class="codehilite"><pre><span></span>/opt/gurobi/linux64$ /srv/jupyterhub/venv/bin/python setup.py install
+<div class="codehilite"><pre><span></span><span class="err">/opt/gurobi/linux64$ /srv/jupyterhub/venv/bin/python setup.py install</span>
 </pre></div>
 
 
@@ -786,7 +786,7 @@ directory <code>/opt/gurobi/linux64</code> and issue the following command</p>
 correct environment.</p>
 <h2 id="license-file">License File</h2>
 <p>The Gurobi license file should be located at <code>/opt/gurobi/linux64/bin/gurobi.lic</code>. If your license is stored elsewhere, please remember to set the variable <code>GRB_LICENSE_FILE</code> in the next section accordingly. If you plan to use a token server for Gurobi, you should deploy a license file with the following contents, adapted to your situation:</p>
-<div class="codehilite"><pre><span></span>TOKENSERVER=gurobi-license-server.demo.invalid
+<div class="codehilite"><pre><span></span><span class="err">TOKENSERVER=gurobi-license-server.demo.invalid</span>
 </pre></div>
 
 
@@ -837,9 +837,9 @@ necessary, so we will add the following lines to the file <code>/etc/jupyterhub/
 <h2 id="restarting-jupyterhub">Restarting JupyterHub</h2>
 <p>Do not forget to restart the JupyterHub daemon so that the settings
 take effect. </p>
-<div class="codehilite"><pre><span></span>$ sudo systemctl daemon-reload
-$ sudo service jupyterhub stop
-$ sudo service jupyterhub start
+<div class="codehilite"><pre><span></span><span class="o">$</span> <span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>
+<span class="o">$</span> <span class="n">sudo</span> <span class="n">service</span> <span class="n">jupyterhub</span> <span class="n">stop</span>
+<span class="o">$</span> <span class="n">sudo</span> <span class="n">service</span> <span class="n">jupyterhub</span> <span class="n">start</span>
 </pre></div>
                 
                   

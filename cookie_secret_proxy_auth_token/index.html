@@ -745,7 +745,7 @@ $ cd jupyterhub
 $ sudo touch jupyterhub_cookie_secret
 $ sudo chown :sudo jupyterhub_cookie_secret
 $ sudo chmod g+rw jupyterhub_cookie_secret
-$ sudo openssl rand -hex 32 &gt; jupyterhub_cookie_secretl
+$ sudo openssl rand -hex 32 &gt; jupyterhub_cookie_secret
 $ sudo chown root jupyterhub_cookie_secret  
 $ sudo chmod 600 jupyterhub_cookie_secret
 $ls -la
@@ -777,9 +777,9 @@ $ls -la
 
 
 <p>Now, when we list the contents of <code>~/srv/jupyterhub</code> we see:</p>
-<div class="codehilite"><pre><span></span>/srv/jupyterhub/
-├── jupyterhub_cookie_secret
-└── proxy_auth_token
+<div class="codehilite"><pre><span></span><span class="err">/srv/jupyterhub/</span>
+<span class="err">├── jupyterhub_cookie_secret</span>
+<span class="err">└── proxy_auth_token</span>
 </pre></div>
 
 

@@ -819,8 +819,8 @@
 <div class="codehilite"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;gitlab_oauth_credentials.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">gitlab_oauth</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">gitlab_oauth</span><span class="p">[</span><span class="s1">&#39;web&#39;</span><span class="p">][</span><span class="s1">&#39;application_id&#39;</span><span class="p">])</span>
-<span class="k">print</span><span class="p">(</span><span class="n">gitlab_oauth</span><span class="p">[</span><span class="s1">&#39;web&#39;</span><span class="p">][</span><span class="s1">&#39;secret&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gitlab_oauth</span><span class="p">[</span><span class="s1">&#39;web&#39;</span><span class="p">][</span><span class="s1">&#39;application_id&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gitlab_oauth</span><span class="p">[</span><span class="s1">&#39;web&#39;</span><span class="p">][</span><span class="s1">&#39;secret&#39;</span><span class="p">])</span>
 </pre></div>
 
 
@@ -892,7 +892,7 @@
 <span class="n">c</span><span class="o">.</span><span class="n">LocalGitLabOAuthenticator</span><span class="o">.</span><span class="n">client_secret</span> <span class="o">=</span> <span class="n">gitlab_oauth</span><span class="p">[</span><span class="s1">&#39;web&#39;</span><span class="p">][</span><span class="s1">&#39;secret&#39;</span><span class="p">]</span>
 
 <span class="n">c</span><span class="o">.</span><span class="n">LocalGitLabOAuthenticator</span><span class="o">.</span><span class="n">oauth_callback_url</span> <span class="o">=</span> <span class="s1">&#39;https://m09vm14.ma.tum.de/hub/oauth_callback&#39;</span> <span class="c1"># replace with your domain</span>
-<span class="n">c</span><span class="o">.</span><span class="n">LocalGitLabOAuthenticator</span><span class="o">.</span><span class="n">create_system_users</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">c</span><span class="o">.</span><span class="n">LocalGitLabOAuthenticator</span><span class="o">.</span><span class="n">create_system_users</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">c</span><span class="o">.</span><span class="n">Authenticator</span><span class="o">.</span><span class="n">add_user_cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;adduser&#39;</span><span class="p">,</span> <span class="s1">&#39;-q&#39;</span><span class="p">,</span> <span class="s1">&#39;--gecos&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;--disabled-password&#39;</span><span class="p">,</span> <span class="s1">&#39;--force-badname&#39;</span><span class="p">]</span>
 <span class="n">c</span><span class="o">.</span><span class="n">LocalGitLabOAuthenticator</span><span class="o">.</span><span class="n">hosted_domain</span> <span class="o">=</span> <span class="s1">&#39;ma.tum.de&#39;</span>   <span class="c1"># replace with your domain</span>
 <span class="n">c</span><span class="o">.</span><span class="n">LocalGitLabOAuthenticator</span><span class="o">.</span><span class="n">login_service</span> <span class="o">=</span> <span class="s1">&#39;Technische Universität München&#39;</span>  <span class="c1"># replace with your &#39;College Name&#39;</span>
