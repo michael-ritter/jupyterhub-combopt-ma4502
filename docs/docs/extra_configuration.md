@@ -15,27 +15,27 @@ A couple configuration options in the list seem like good ideas:
 The class has about 40 students, plus one instructor. Given that class size, I think 100 is a good number for the maximum that can use JupyterHub the same time. The following settings can be configured in `/etc/jupyterhub/jupyterhub_config.py`:
 
 ```text
-c.JupyterHub.active_server_limit = 100
 # Maximum number of concurrent servers that can be active at a time.
+c.JupyterHub.active_server_limit = 100
 ```
 
 Having too many users log in all at the same time can overload the server. Let's set this as 20, so half of the class can log in at the same time.
 
 ```text
+# Maximum number of concurrent users that can be spawning at a time.
 c.JupyterHub.concurrent_spawn_limit = 20
-Maximum number of concurrent users that can be spawning at a time.
 ```
 
 A couple settings relate to shutting down the hub and if user servers shut down too. I want it set so that if I shut down the hub, all the user servers are shut down too.
 
 ```text
-c.JupyterHub.cleanup_proxy = True
 # Whether to shutdown the proxy when the Hub shuts down.
+c.JupyterHub.cleanup_proxy = True
 ```
 
 ```text
-c.JupyterHub.cleanup_servers = True
 # Whether to shutdown single-user servers when the Hub shuts down.
+c.JupyterHub.cleanup_servers = True
 ```
 
 ## Cull Idle Servers
