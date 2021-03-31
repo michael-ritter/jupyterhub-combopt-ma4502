@@ -93,8 +93,8 @@ $ exit
 Next, we need to open the **ufw** firewall to OpenSSH traffic. We we'll communicate with the server over SSH and need the **ufw** firewall to allow this type of communication through. While we're at it, let's also open ports 80 and 443 for http and https communications.
 
 ```text
-$ sudo ufw deny incoming
-$ sudo ufw allow outgoing
+$ sudo ufw ddefault eny incoming
+$ sudo ufw default allow outgoing
 $ sudo ufw allow ssh
 $ sudo ufw allow http
 $ sudo ufw allow https
