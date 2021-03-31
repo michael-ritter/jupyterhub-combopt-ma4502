@@ -58,18 +58,18 @@ Inside the ```docs/``` directory is another ```docs/``` subdirectory with all of
     └── partials
 ```
 
-To build the docs locally, make sure you have Python installed (I use [Anaconda](https://anaconda.com/downloads)). Start out by cloning the repo:
+To build the docs locally, make sure you have Python installed. Start out by cloning the repo:
 
 ```text
-git clone https://github.com/ProfessorKazarinoff/jupyterhub-engr101.git
+git clone https://github.com/michael-ritter/jupyterhub-combopt-ma4502.git
 ```
 
 ```cd``` into the cloned repo, and create a virtual environment. Install the Python packages needed to build the docs.
 
 ```text
-cd jupyterhub-engr101.git
-conda create -n jupyterhub python=3.7
-conda activate jupyterhub
+cd jupyterhub-combopt-ma4502
+python3 -m venv venv
+source venv/bin/activate
 (jupyterhub) pip install -r requirements.txt
 ```
 
