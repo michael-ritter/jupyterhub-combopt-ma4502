@@ -70,7 +70,7 @@ git clone https://github.com/michael-ritter/jupyterhub-combopt-ma4502.git
 cd jupyterhub-combopt-ma4502
 python3 -m venv venv
 source venv/bin/activate
-(jupyterhub) pip install -r requirements.txt
+(venv) pip install -r requirements.txt
 ```
 
 ```cd``` into the docs dir, and run ```mkdocs build``` and ```mkdocs serve```
