@@ -22,7 +22,7 @@ $ pwd
 $ sudo touch jupyterhub_cookie_secret
 $ sudo chown :sudo jupyterhub_cookie_secret
 $ sudo chmod g+rw jupyterhub_cookie_secret
-$ sudo openssl rand -hex 32 > jupyterhub_cookie_secretl
+$ sudo openssl rand -hex 32 > jupyterhub_cookie_secret
 $ sudo chown root jupyterhub_cookie_secret  
 $ sudo chmod 600 jupyterhub_cookie_secret
 $ls -la
