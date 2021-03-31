@@ -60,7 +60,7 @@ c.Spawner.default_url = '/lab' # optional: switch to lab interface upon login
 
 This line activates the JuypterLab interface diredtly upon login. You may safely comment it out if you would rather want the classic Jupyter Notebooks interface (which is the default setting). JuypterLabs is still active and a user may manually switch to the new interface through appending ```/lab```to the url.
 
-## Optinal: Install Jupyterhub Lab Extensions
+## Optional: Install Jupyterhub Lab Extensions
 If you are planning to use JupyterLab instead of the classic JupyterNotebooks interface, you may install the lab extensions into jupyter hub through the following command:
 
 ```text
