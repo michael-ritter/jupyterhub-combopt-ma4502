@@ -10,5 +10,5 @@ Pygments==2.7.4
 pymdown-extensions==10.0
 PyYAML==5.4
 six==1.12.0
-tornado==5.1.1
+tornado==6.3.2
 wincertstore==0.2
